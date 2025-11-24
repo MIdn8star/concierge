@@ -20,11 +20,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
+        path: 'inquiries',
+        loadComponent: () =>
+          import('./modules/inquiries/inquiry.component/inquiry.component')
+            .then(m => m.InquiryComponent)
+      },
+      {
         path: '',
         redirectTo: 'properties',
         pathMatch: 'full'
       },
-
       // ADD PROPERTY
       {
         path: 'properties/add',

@@ -1,1 +1,21 @@
-<p>main-layout works!</p>
+<div class="w-full h-screen flex overflow-hidden">
+
+  <!-- Sidebar (fixed) -->
+  <app-sidebar class="fixed left-0 top-0 h-full w-64"></app-sidebar>
+
+  <!-- Right section -->
+  <div class="flex flex-col flex-1 ml-64">
+
+    <!-- Header (fixed) -->
+    <app-header class="fixed top-0 ml-64 w-[calc(100%-16rem)] z-10"></app-header>
+
+    <!-- Main content area (scroll only here) -->
+    <main class="mt-14 overflow-y-auto h-[calc(100vh-56px)] bg-gray-50 p-4">
+      <router-outlet></router-outlet>
+    </main>
+
+    <!-- Footer -->
+    <app-footer></app-footer>
+
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import { Auth } from '../../../core/services/auth';
+import { AuthService } from '../../../core/services/auth';
 import {ComponentCard} from '../../../shared/components/component-card/component-card';
 import { inject } from '@angular/core';
 
@@ -19,7 +19,7 @@ import { inject } from '@angular/core';
 export class Login {
 
   private fb = inject(FormBuilder);
-  private auth = inject(Auth);
+  private auth = inject(AuthService);
   private router = inject(Router);
 
   loading = false;
