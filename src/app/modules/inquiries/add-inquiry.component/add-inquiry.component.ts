@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   imports: [],
   templateUrl: './add-inquiry.component.html',
   styleUrl: './add-inquiry.component.scss',
+  standalone: true
 })
 export class AddInquiryComponent {
 

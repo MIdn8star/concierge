@@ -1,72 +1,99 @@
 <div class="w-full">
 
-  <!-- Page Header -->
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="text-xl font-semibold">Inquiry List</h2>
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold">Inquiries</h2>
   </div>
 
-  <!-- Table Container -->
-  <div class="bg-white shadow rounded-lg overflow-hidden">
 
-    <table class="w-full border-collapse">
-      <thead class="bg-gray-100">
-      <tr>
-        <th class="p-3 text-left border-b">#</th>
-        <th class="p-3 text-left border-b">Name</th>
-        <th class="p-3 text-left border-b">Mobile</th>
-        <th class="p-3 text-left border-b">Event Date</th>
-        <th class="p-3 text-left border-b">Status</th>
-        <th class="p-3 text-left border-b">Actions</th>
-      </tr>
-      </thead>
+  <!-- Loading -->
+  @if (loading) {
+    <div class="text-center py-10 text-gray-500">
+      Loading inquiries...
+    </div>
+  }
 
-      <tbody>
-        @for (inquiry of inquiries.slice((page-1)*pageSize, page*pageSize); track inquiry.id) {
-          <tr class="hover:bg-gray-50">
-            <td class="p-3 border-b">{{ inquiry.id }}</td>
-            <td class="p-3 border-b">{{ inquiry.name }}</td>
-            <td class="p-3 border-b">{{ inquiry.mobile }}</td>
-            <td class="p-3 border-b">{{ inquiry.eventDate }}</td>
 
-            <td class="p-3 border-b">
-      <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-600">
-        {{ inquiry.status }}
-      </span>
-            </td>
+  <!-- Table -->
+  @if (!loading) {
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+      <table class="w-full border-collapse">
+        <thead class="bg-gray-100">
+        <tr>
+          <th class="p-3 text-left border-b">#</th>
+          <th class="p-3 text-left border-b">Name</th>
+          <th class="p-3 text-left border-b">Mobile</th>
+          <th class="p-3 text-left border-b">Event Date</th>
+          <th class="p-3 text-left border-b">Status</th>
+          <th class="p-3 text-left border-b">Actions</th>
+        </tr>
+        </thead>
 
-            <td class="p-3 border-b flex space-x-3">
-              <button (click)="viewInquiry(inquiry.id)" class="text-blue-600 hover:underline">View</button>
-              <button (click)="editInquiry(inquiry.id)" class="text-green-600 hover:underline">Edit</button>
-            </td>
-          </tr>
-        }
-        @empty {
-          <tr>
-            <td colspan="6" class="text-center py-6 text-gray-500">
-              No inquiries found
-            </td>
-          </tr>
-        }
-      </tbody>
+        <tbody>
 
-    </table>
+          @for (inq of inquiries; track inq.id) {
+            <tr class="hover:bg-gray-50">
+              <td class="p-3 border-b">{{ inq.id }}</td>
+              <td class="p-3 border-b">{{ inq.name }}</td>
+              <td class="p-3 border-b">{{ inq.mobile }}</td>
+              <td class="p-3 border-b">{{ inq.eventDate || '-' }}</td>
+              <td class="p-3 border-b">
+                <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-600">
+                  {{ inq.status || 'NEW' }}
+                </span>
+              </td>
+              <td class="p-3 border-b flex gap-4">
+                <button class="text-blue-600 hover:underline"
+                        (click)="viewInquiry(inq.id)">
+                  View
+                </button>
 
-    <!-- Pagination -->
-<!--    <mat-paginator-->
-<!--      [length]="totalRecords"-->
-<!--      [pageSize]="pageSize"-->
-<!--      [pageSizeOptions]="[5, 10, 20, 50]"-->
-<!--      (page)="onPageChange($event)"-->
-<!--      class="bg-white">-->
-<!--    </mat-paginator>-->
+                <button class="text-green-600 hover:underline"
+                        (click)="editInquiry(inq.id)">
+                  Edit
+                </button>
+              </td>
+            </tr>
+          }
 
+          @empty {
+            <tr>
+              <td colspan="6" class="text-center py-6 text-gray-500">
+                No inquiries found.
+              </td>
+            </tr>
+          }
+
+        </tbody>
+      </table>
+    </div>
+  }
+
+
+  <!-- Pagination -->
+  <div class="flex justify-between items-center mt-4">
+    <button class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            [disabled]="page === 1"
+            (click)="prevPage()">
+      Previous
+    </button>
+
+    <div>Page {{ page }}</div>
+
+    <button class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+            [disabled]="page * limit >= total"
+            (click)="nextPage()">
+      Next
+    </button>
   </div>
 
-  <!-- Floating Add Inquiry Button -->
+
+  <!-- Floating Add Button -->
   <button
     (click)="addInquiry()"
-    class="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white rounded-full shadow-lg
-           flex items-center justify-center text-3xl hover:bg-blue-700">
+    class="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 text-white
+           rounded-full shadow-lg flex items-center justify-center text-3xl
+           hover:bg-blue-700">
     +
   </button>
 

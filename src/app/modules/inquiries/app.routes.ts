@@ -10,12 +10,13 @@ export const routes: Routes = [
           import('../inquiries/inquiry.component/inquiry.component')
             .then(m => m.InquiryComponent)
       },
-      // {
-      //   path: 'add',
-      //   loadComponent: () =>
-      //     import('./modules/inquiries/inquiry-add/inquiry-add.component')
-      //       .then(m => m.InquiryAddComponent)
-      // },
+      {
+        path: 'inquiries',
+        children: [
+          { path: '', loadComponent: () => import('../inquiries/inquiry.component/inquiry.component').then(m => m.InquiryComponent) },
+          { path: 'add', loadComponent: () => import('../inquiries/add-inquiry.component/add-inquiry.component').then(m => m.AddInquiryComponent) },
+        ]
+      }
       // {
       //   path: 'edit/:id',
       //   loadComponent: () =>

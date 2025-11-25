@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {InquiryService} from '../../../core/services/inquiry.service';
 
 @Component({
   selector: 'app-inquiry.component',
@@ -10,39 +11,54 @@ import {Router} from '@angular/router';
 })
 export class InquiryComponent implements OnInit {
 
+  inquiryService = inject(InquiryService);
+  router = inject(Router);
+
   inquiries: any[] = [];
   page = 1;
-  pageSize = 10;
-  totalRecords = 0;
+  limit = 10;
+  total = 0;
 
-  constructor(private router: Router) {}
+  loading = false;
 
   ngOnInit() {
     this.loadInquiries();
   }
 
   loadInquiries() {
-    // Replace with API call
-    this.inquiries = Array.from({ length: 100 }).map((_, i) => ({
-      id: i + 1,
-      name: `Customer ${i + 1}`,
-      mobile: "9876543210",
-      eventDate: "2025-01-15",
-      status: i % 2 === 0 ? "NEW" : "FOLLOW-UP",
-      createdAt: "2025-01-01",
-    }));
+    this.loading = true;
 
-    this.totalRecords = this.inquiries.length;
+    this.inquiryService.getInquiries(this.page, this.limit).subscribe({
+      next: (res: any) => {
+        this.inquiries = res.data || res.inquiries || [];
+        this.total = res.total || 0;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading inquiries:', err);
+        this.loading = false;
+      }
+    });
   }
 
-  onPageChange(e: any) {
-    this.page = e.pageIndex + 1;
-    this.pageSize = e.pageSize;
+  nextPage() {
+    if (this.page * this.limit < this.total) {
+      this.page++;
+      this.loadInquiries();
+    }
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadInquiries();
+    }
   }
 
   addInquiry() {
-    this.router.navigate(['/inquiries/add']);
+    this.router.navigateByUrl('/inquiries/add');
   }
+
 
   editInquiry(id: number) {
     this.router.navigate(['/inquiries/edit', id]);
