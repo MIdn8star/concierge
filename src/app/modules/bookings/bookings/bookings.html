@@ -1,0 +1,42 @@
+<div class="p-4">
+
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold">Bookings</h2>
+    <button
+      class="px-4 py-2 bg-blue-600 text-white rounded"
+      (click)="gotoAdd()">
+      + Add Booking
+    </button>
+  </div>
+
+  <table class="min-w-full bg-white border">
+    <thead class="bg-gray-100">
+    <tr>
+      <th class="p-2 border">ID</th>
+      <th class="p-2 border">Booking Date</th>
+      <th class="p-2 border">Slot</th>
+      <th class="p-2 border">Guest Name</th>
+      <th class="p-2 border">Mobile</th>
+      <th class="p-2 border">Event Type</th>
+      <th class="p-2 border">Expected Guests</th>
+      <th class="p-2 border">Status</th>
+    </tr>
+    </thead>
+
+    <tbody>
+      @for (b of bookings; track b.id) {
+        <tr>
+          <td class="border p-2">{{ b.id }}</td>
+          <td class="border p-2">{{ b.bookingDate | date:'mediumDate' }}</td>
+          <td class="border p-2">{{ b.slotName }}</td>
+          <td class="border p-2">{{ b.guestName }}</td>
+          <td class="border p-2">{{ b.guestMobile }}</td>
+          <td class="border p-2">{{ b.eventType }}</td>
+          <td class="border p-2">{{ b.expectedGuests }}</td>
+          <td class="border p-2">{{ b.status }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>

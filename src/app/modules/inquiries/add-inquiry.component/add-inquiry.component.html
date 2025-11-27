@@ -1,1 +1,96 @@
-<p>add-inquiry.component works!</p>
+<div class="p-6 max-w-3xl mx-auto">
+
+  <h2 class="text-2xl font-semibold mb-4">Add Inquiry</h2>
+
+  <form [formGroup]="addInquiryForm" (ngSubmit)="submit()" class="space-y-4">
+
+    <!-- Customer Name -->
+    <div>
+      <label class="block mb-1 font-medium">Customer Name</label>
+      <input type="text" formControlName="customerName"
+             class="w-full border p-2 rounded" />
+
+      @if (addInquiryForm.get('customerName')?.touched && addInquiryForm.get('customerName')?.invalid) {
+        <p class="text-red-600 text-sm">Required</p>
+      }
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <label class="block mb-1 font-medium">Mobile</label>
+      <input type="text" formControlName="phone"
+             class="w-full border p-2 rounded" maxlength="10" />
+
+      @if (addInquiryForm.get('phone')?.touched && addInquiryForm.get('phone')?.invalid) {
+        <p class="text-red-600 text-sm">Enter valid mobile number</p>
+      }
+    </div>
+
+    <!-- Occasion -->
+    <div>
+      <label class="block mb-1 font-medium">Occasion</label>
+      <input type="text" formControlName="occasion"
+             class="w-full border p-2 rounded" />
+
+      @if (addInquiryForm.get('occasion')?.touched && addInquiryForm.get('occasion')?.invalid) {
+        <p class="text-red-600 text-sm">Required</p>
+      }
+    </div>
+
+    <!-- Date -->
+    <div>
+      <label class="block mb-1 font-medium">Date</label>
+      <input type="date" formControlName="date"
+             class="w-full border p-2 rounded" />
+
+      @if (addInquiryForm.get('date')?.touched && addInquiryForm.get('date')?.invalid) {
+        <p class="text-red-600 text-sm">Required</p>
+      }
+    </div>
+
+    <!-- Time -->
+    <div>
+      <label class="block mb-1 font-medium">Time</label>
+      <input type="time" formControlName="time"
+             class="w-full border p-2 rounded" />
+
+      @if (addInquiryForm.get('time')?.touched && addInquiryForm.get('time')?.invalid) {
+        <p class="text-red-600 text-sm">Required</p>
+      }
+    </div>
+
+    <!-- PAX -->
+    <div>
+      <label class="block mb-1 font-medium">Pax</label>
+      <input type="number" formControlName="pax"
+             class="w-full border p-2 rounded" />
+
+      @if (addInquiryForm.get('pax')?.touched && addInquiryForm.get('pax')?.invalid) {
+        <p class="text-red-600 text-sm">Required</p>
+      }
+    </div>
+
+    <!-- Notes -->
+    <div>
+      <label class="block mb-1 font-medium">Notes</label>
+      <textarea formControlName="notes"
+                class="w-full border p-2 rounded"></textarea>
+    </div>
+
+    <!-- Button -->
+    <button type="submit"
+            [disabled]="isSubmitting"
+            class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50">
+
+      @if (!isSubmitting) {
+        <span>Save Inquiry</span>
+      }
+      @else {
+        <span>Saving...</span>
+      }
+
+    </button>
+
+  </form>
+
+</div>

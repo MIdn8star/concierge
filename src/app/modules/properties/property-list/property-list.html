@@ -1,1 +1,38 @@
-<p>property-list works!</p>
+<div class="p-6 max-w-4xl mx-auto">
+
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-semibold">Properties</h2>
+
+    <button
+      class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      (click)="goAdd()">
+      Add Property
+    </button>
+  </div>
+
+  @if (loading) {
+    <div class="text-gray-500">Loading...</div>
+  } @else {
+    <table class="w-full border-collapse border">
+      <thead class="bg-gray-100">
+      <tr>
+        <th class="border p-2 text-left">ID</th>
+        <th class="border p-2 text-left">Name</th>
+        <th class="border p-2 text-left">Type</th>
+        <th class="border p-2 text-left">Location</th>
+      </tr>
+      </thead>
+
+      <tbody>
+        @for (p of properties; track p.id) {
+          <tr class="hover:bg-gray-50">
+            <td class="border p-2">{{ p.id }}</td>
+            <td class="border p-2">{{ p.name }}</td>
+            <td class="border p-2">{{ p.type || '-' }}</td>
+            <td class="border p-2">{{ p.location || '-' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

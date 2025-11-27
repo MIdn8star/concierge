@@ -30,9 +30,10 @@ export class InquiryComponent implements OnInit {
 
     this.inquiryService.getInquiries(this.page, this.limit).subscribe({
       next: (res: any) => {
-        this.inquiries = res.data || res.inquiries || [];
-        this.total = res.total || 0;
+        this.inquiries = res || res.inquiries || [];
+        this.total = res.total || 1;
         this.loading = false;
+        console.log('Inquiries', this.inquiries);
       },
       error: (err) => {
         console.error('Error loading inquiries:', err);

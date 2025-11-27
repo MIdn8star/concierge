@@ -1,4 +1,3 @@
-// src/app/app.routes.ts
 
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
@@ -21,9 +20,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'inquiries',
-        loadComponent: () =>
-          import('./modules/inquiries/inquiry.component/inquiry.component')
-            .then(m => m.InquiryComponent)
+        loadChildren: () =>
+          import('./modules/inquiries/inquiry.routes').then(r => r.INQUIRY_ROUTES)
+      },
+      {
+        path: 'bookings',
+        loadChildren: () =>
+          import('./modules/bookings/booking.routes').then(r => r.BOOKING_ROUTES)
       },
       {
         path: '',

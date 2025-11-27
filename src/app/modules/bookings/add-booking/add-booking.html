@@ -1,1 +1,126 @@
-<p>add-booking works!</p>
+<div class="p-6 max-w-3xl mx-auto bg-white shadow rounded-lg">
+  <h2 class="text-2xl font-semibold mb-6 border-b pb-2">Add Booking</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <!-- GRID -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+      <!-- Property ID -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Property ID</label>
+        <input
+          type="number"
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="propertyId">
+      </div>
+
+      <!-- Booking Date -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Booking Date</label>
+        <input
+          type="date"
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="bookingDate">
+      </div>
+
+      <!-- Slot -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Slot</label>
+        <select
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="slotName">
+          <option value="BREAKFAST">BREAKFAST</option>
+          <option value="LUNCH">LUNCH</option>
+          <option value="HI-TEA">HI-TEA</option>
+          <option value="DINNER">DINNER</option>
+        </select>
+      </div>
+
+      <!-- Guest Name -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Guest Name</label>
+        <input
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="guestName">
+      </div>
+
+      <!-- Guest Mobile -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Guest Mobile</label>
+        <input
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="guestMobile">
+      </div>
+
+      <!-- Event Type -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Event Type</label>
+        <input
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="eventType">
+      </div>
+
+      <!-- Expected Guests -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Expected Guests</label>
+        <input
+          type="number"
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="expectedGuests">
+      </div>
+
+      <!-- Total Package -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Total Package</label>
+        <input
+          type="number"
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="totalPackage">
+      </div>
+
+      <!-- Advance Paid -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Advance Paid</label>
+        <input
+          type="number"
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="advancePaid">
+      </div>
+
+      <!-- Balance Amount -->
+      <div class="flex flex-col gap-1">
+        <label class="font-medium">Balance Amount</label>
+        <input
+          type="number"
+          class="input border rounded px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          formControlName="balanceAmount">
+      </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="mt-6">
+      <label class="font-medium">Internal Notes</label>
+      <textarea
+        rows="3"
+        class="input mt-1 border rounded w-full px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+        formControlName="internalNotes"></textarea>
+    </div>
+
+    <div class="mt-4">
+      <label class="font-medium">Customer Notes</label>
+      <textarea
+        rows="3"
+        class="input mt-1 border rounded w-full px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+        formControlName="customerNotes"></textarea>
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      class="mt-8 w-full bg-blue-600 hover:bg-blue-700 transition text-white font-semibold py-3 rounded-lg disabled:opacity-50"
+      [disabled]="form.invalid || submitting">
+      {{ submitting ? 'Saving...' : 'Save Booking' }}
+    </button>
+
+  </form>
+</div>

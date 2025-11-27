@@ -16,4 +16,8 @@ export class InquiryService {
   deleteInquiry(id: number) {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  createInquiry(data: any) {
+    return this.http.post(this.baseUrl, data);
+  }
 }
